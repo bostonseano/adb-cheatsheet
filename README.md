@@ -1,5 +1,7 @@
 # ADB
 
+Commands for android-tools
+
 ### Start ADB server:
 
     adb start-server 
@@ -108,9 +110,45 @@
 
     adb pull /storage/on/device/ /path/on/pc # Notice the trial slash
     
-# ADB package manager
+# ADB package manager (please use cmd, it's alot faster then old pm) 
 
-### List all packages installed on device
+### CMD
+
+### List uid owner of a app
+
+    cmd package list packages -U                                           
+
+### List packages a.k.a: pm list packages
+
+    cmd package list packages -l                                          
+
+### List disabled packages
+    cmd package list packages -d
+    
+### Filter to only show enabled packages     
+    cmd package list packages -e                                       
+
+### Filter to only show third party packages    
+
+    cmd package list packages -3                                                 
+
+### Set the default home activity (aka launcher)
+
+    cmd package set-home-activity [--user USER_ID] TARGET-COMPONENT        
+    
+### Prints all features of the system
+
+    cmd package list features 
+    
+###  Print briefs
+
+    cmd package resolve-activity --brief  com.facebook.katana        
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    com.facebook.katana/.LoginActivity
+
+### PM 
+
+### List all packages installed on device 
 
     pm list packages
 
@@ -246,6 +284,10 @@
 
 ### List all active services:
 
+    dumpsys -l 
+    
+    oln older devices
+    
     dumpsys -l |sed 's/^  /      /g'
     Currently running services:
       AAS
@@ -528,7 +570,6 @@ There is to much to describe here, get info by type getprop, but you can for exa
     
     content insert –uri content://settings/system –bind name:s:accelerometer_rotation –bind value:i:0
 
-
 ### Rotate to landscape
 
      content insert —uri content://settings/system –bind name:s:user_rotation –bind value:i:1
@@ -635,7 +676,9 @@ There is to much to describe here, get info by type getprop, but you can for exa
 
 ### Print device info
 
-    thinkpad /home/wuseman # fastboot getvar all
+    
+    fastboot getvar all
+    
     (bootloader) version:0.5
     (bootloader) variant:MTP eMMC
     (bootloader) secure:yes
